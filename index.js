@@ -17,6 +17,9 @@
 		// The object that holds a reference to callbacks that
 		// are waiting for a module to become available / loaded
 		this._waiting = {};
+		
+		// The object that holds the application state data
+		this.state = {};
 	};
 	
 	/**
