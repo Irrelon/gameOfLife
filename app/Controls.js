@@ -22,7 +22,7 @@ app.module('Controls', function (Board) {
 			
 			// We have a width and height, create the board with the target
 			// element "mainBoard"
-			app._data.board = new Board('#mainBoard', width, height);
-			app._data.board.init();
+			app.state.board = new Board('#mainBoard', width, height);
+			app.state.board.init();
 		});
 });
