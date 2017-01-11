@@ -1,0 +1,24 @@
+.board {
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+
+	.cell {
+		box-sizing: border-box;
+		border: 1px solid white;
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+
+		&.dead {
+			background-color: #999999;
+		}
+
+		&.alive {
+			background-color: #30baff;
+		}
+
+		&:hover {
+			background-color: #ff9736;
+		}
+	}
+}
