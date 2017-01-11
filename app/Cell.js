@@ -37,6 +37,9 @@ app.module('Cell', function () {
 		this.registerEvents();
 	};
 	
+	/**
+	 * Registers DOM events for this cell.
+	 */
 	Cell.prototype.registerEvents = function () {
 		var self = this;
 		
@@ -46,6 +49,9 @@ app.module('Cell', function () {
 		});
 	};
 	
+	/**
+	 * Toggles the alive flag for the cell.
+	 */
 	Cell.prototype.toggleAlive = function () {
 		this.alive(!this.alive());
 	};
@@ -117,11 +123,40 @@ app.module('Cell', function () {
 	 * clear.
 	 */
 	Cell.prototype.tick = function (board) {
+		var neighbours,
+			neighbourCount = 0,
+			index;
+		
 		// Get the number of neighbours for this cell
+		neighbours = board.getCellNeighbours(this.x(), this.y());
 		
+		// Count neighbours that are alive
+		for (index = 0; index < neighbours.length; index++) {
+			if (neighbours[index] && neighbours[index].alive()) {
+				neighbourCount++;
+			}
+		}
 		
-		// Check the rules of the game, applied to this cell
-		return this._alive;
+		// Check if this cell is currently alive
+		if (this.alive()) {
+			// Check for solitude
+			if (neighbourCount < 2) {
+				return false;
+			}
+			
+			// Check for overpopulation
+			if (neighbourCount > 3) {
+				return false;
+			}
+			
+			// This cell has survived this tick!
+			return true;
+		}
+		
+		// Check for new population
+		if (neighbourCount === 3) {
+			return true;
+		}
 	};
 	
 	return Cell;

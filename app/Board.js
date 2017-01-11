@@ -87,7 +87,9 @@ app.module('Board', function (Cell) {
 	 * @returns {Cell} The cell instance at the passed co-ordinates.
 	 */
 	Board.prototype.getCellByXY = function (x, y) {
-		return this._cells[x][y];
+		if (x > -1 && y > -1 && x < this._width && y < this._height) {
+			return this._cells[x][y];
+		}
 	};
 	
 	/**

@@ -19,7 +19,14 @@
 		this._waiting = {};
 		
 		// The object that holds the application state data
-		this.state = {};
+		this.state = {
+			// A flag that determines if the simulation should proceed
+			// without the user having to press the "Next Tick" button
+			autoTick: false,
+			
+			// The amount of milliseconds between auto-tick intervals
+			autoTickInterval: 100
+		};
 	};
 	
 	/**
@@ -178,5 +185,6 @@
 		this._moduleLoaded(name);
 	};
 	
+	// Create the app instance and add to global scope
 	window.app = new App();
 })();
