@@ -1,17 +1,23 @@
 <html>
 <head>
 	<title>Irrelon Game of Life Simulation</title>
+	<link rel="stylesheet" href="css/app.css" />
 </head>
 <body>
 	<!-- Application controls -->
 	<section id="appControls">
-		<input title="Board Width" type="number" id="boardWidth" value="100" />
-		<input title="Board Height" type="number" id="boardHeight" value="100" />
+		<div>
+			Select the width and height of your Game of Life board and click "Create new Board" to
+			setup a board. If a board already exists, clicking this button will wipe the old board
+			and create a new one.
+		</div>
+		<input title="Board Width" type="number" id="boardWidth" value="10" />
+		<input title="Board Height" type="number" id="boardHeight" value="10" />
 		<button type="button" id="createBoard">Create New Board</button>
 	</section>
 
 	<!-- The element to use as our render target -->
-	<div id="mainBoard"></div>
+	<div id="mainBoard" class="board"></div>
 
 	<!-- The main application script -->
 	<script src="index.js"></script>
