@@ -20,19 +20,34 @@ app.module('Cell', function () {
 		// Store the board's element
 		this._boardElementSelector = boardElementSelector;
 		
+		// Create a DOM element for this cell
+		this._elem = document.createElement('div');
+		
 		// Set defaults
 		this.x(x);
 		this.y(y);
 		this.alive(false);
 		
-		// Create a DOM element for this cell
-		this._elem = document.createElement('div');
-		this._elem.className = 'cell dead';
-		
 		// Append the cell DOM element to the board's DOM container
 		document
 			.querySelector(this._boardElementSelector)
 			.appendChild(this._elem);
+		
+		// Register DOM events for this cell
+		this.registerEvents();
+	};
+	
+	Cell.prototype.registerEvents = function () {
+		var self = this;
+		
+		this._elem.addEventListener('click', function () {
+			// The cell has been clicked, toggle the alive status
+			self.toggleAlive();
+		});
+	};
+	
+	Cell.prototype.toggleAlive = function () {
+		this.alive(!this.alive());
 	};
 	
 	/**
@@ -82,7 +97,12 @@ app.module('Cell', function () {
 	 */
 	Cell.prototype.alive = function (val) {
 		if (val !== undefined) {
+			// Store alive flag
 			this._alive = val;
+			
+			// Set CSS for the cell element
+			this._elem.className = 'cell ' + (this._alive ? 'alive' : 'dead');
+			
 			return this;
 		}
 		
