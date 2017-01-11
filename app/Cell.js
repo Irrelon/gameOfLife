@@ -82,11 +82,11 @@ app.module('Cell', function () {
 	 */
 	Cell.prototype.alive = function (val) {
 		if (val !== undefined) {
-			this._y = val;
+			this._alive = val;
 			return this;
 		}
 		
-		return this._y;
+		return this._alive;
 	};
 	
 	/**
