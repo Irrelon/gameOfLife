@@ -100,6 +100,15 @@
 		}
 	};
 	
+	/**
+	 * Adds the passed callback function to an array that will be
+	 * processed once the named module has loaded.
+	 * @param {String} name The name of the module to wait for.
+	 * @param {Function} callback The function to call once the
+	 * named module has loaded.
+	 * @returns {App} Returns "this" for method chaining.
+	 * @private
+	 */
 	App.prototype._waitForModule = function (name, callback) {
 		// Add the callback to the waiting list for this module
 		this._waiting[name] = this._waiting[name] || [];
@@ -108,6 +117,14 @@
 		return this;
 	};
 	
+	/**
+	 * Called when a module has loaded and will loop the array of
+	 * waiting functions that have registered to be called when the
+	 * named module has loaded, telling them the module is now
+	 * available to use.
+	 * @param {String} name The name of the module that has loaded.
+	 * @private
+	 */
 	App.prototype._moduleLoaded = function (name) {
 		var waitingArr,
 			waitingIndex;
