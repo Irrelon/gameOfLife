@@ -54,6 +54,63 @@ app.module('Board', function (Cell) {
 	};
 	
 	/**
+	 * Process a game board tick.
+	 */
+	Board.prototype.tick = function () {
+		var x, y, deadOrAlive = [];
+		
+		// Loop the cells and ask each on to resolve their life or death for
+		// this tick. After we have resolved this, we will apply the values.
+		for (y = 0; y < this._height; y++) {
+			for (x = 0; x < this._width; x++) {
+				// Ensure we have a y axis array for this x axis
+				deadOrAlive[x] = deadOrAlive[x] || [];
+				
+				// Ask the cell for their pending status, passing the board
+				// instance to the cell so it can query surrounding cells
+				deadOrAlive[x][y] = this._cells[x][y].tick(this);
+			}
+		}
+		
+		// Now apply the new status to each cell
+		for (y = 0; y < this._height; y++) {
+			for (x = 0; x < this._width; x++) {
+				this._cells[x][y].alive(deadOrAlive[x][y]);
+			}
+		}
+	};
+	
+	/**
+	 * Gets a cell by the passed co-ordinates.
+	 * @param {Number} x The x co-ordinate of the cell to get.
+	 * @param {Number} y The y co-ordinate of the cell to get.
+	 * @returns {Cell} The cell instance at the passed co-ordinates.
+	 */
+	Board.prototype.getCellByXY = function (x, y) {
+		return this._cells[x][y];
+	};
+	
+	/**
+	 * Gets the neighbouring cells of the passed cell co-ordinates.
+	 * @param {Number} x The x co-ordinate of the cell to get neighbours for.
+	 * @param {Number} y The y co-ordinate of the cell to get neighbours for.
+	 * @returns {[*,*,*,*,*,*,*,*]}
+	 */
+	Board.prototype.getCellNeighbours = function (x, y) {
+		return [
+			this.getCellByXY(x - 1, y - 1),
+			this.getCellByXY(x, y - 1),
+			this.getCellByXY(x + 1, y - 1),
+			this.getCellByXY(x - 1, y),
+			// this.getCellByXY(x, y), // We don't want this one, it's our own centre cell
+			this.getCellByXY(x + 1, y),
+			this.getCellByXY(x - 1, y + 1),
+			this.getCellByXY(x, y + 1),
+			this.getCellByXY(x + 1, y + 1)
+		]
+	};
+	
+	/**
 	 * Destroys all cells in the board and removes any reference to them.
 	 */
 	Board.prototype.destroy = function () {
