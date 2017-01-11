@@ -1,5 +1,7 @@
 app.module('Controls', function (Board) {
-	var view = document.querySelector('#appControls');
+	var view = document.querySelector('#appControls'),
+		width,
+		height;
 	
 	// Handle user clicking "createBoard" button
 	view
@@ -31,4 +33,11 @@ app.module('Controls', function (Board) {
 			app.state.board = new Board('#mainBoard', width, height);
 			app.state.board.init();
 		});
+	
+	// Create a new board by default
+	width = parseInt(view.querySelector('#boardWidth').value, 10);
+	height = parseInt(view.querySelector('#boardHeight').value, 10);
+	
+	app.state.board = new Board('#mainBoard', width, height);
+	app.state.board.init();
 });

@@ -1,3 +1,16 @@
+body {
+	font-family: Verdana, sans-serif;
+	font-size: 12px;
+}
+
+#appControls {
+	margin-bottom: 10px;
+
+	.desc {
+		margin-bottom: 10px;
+	}
+}
+
 .board {
 	border: 1px solid #ccc;
 	box-sizing: border-box;
@@ -10,7 +23,7 @@
 		height: 10px;
 
 		&.dead {
-			background-color: #999999;
+			background-color: #cbcbcb;
 		}
 
 		&.alive {
@@ -21,4 +34,8 @@
 			background-color: #ff9736;
 		}
 	}
+}
+
+#boardControls {
+	margin-top: 10px;
 }

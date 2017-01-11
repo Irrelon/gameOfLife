@@ -6,18 +6,25 @@
 <body>
 	<!-- Application controls -->
 	<section id="appControls">
-		<div>
+		<div class="desc">
 			Select the width and height of your Game of Life board and click "Create new Board" to
 			setup a board. If a board already exists, clicking this button will wipe the old board
 			and create a new one.
 		</div>
-		<input title="Board Width" type="number" id="boardWidth" value="10" />
-		<input title="Board Height" type="number" id="boardHeight" value="10" />
+		<input title="Board Width" type="number" id="boardWidth" value="40" />
+		<input title="Board Height" type="number" id="boardHeight" value="20" />
 		<button type="button" id="createBoard">Create New Board</button>
 	</section>
 
 	<!-- The element to use as our render target -->
 	<div id="mainBoard" class="board"></div>
+
+	<!-- The game board stepping controls -->
+	<section id="boardControls">
+		<nav>
+			<button type="button" id="nextTick">Next Tick</button>
+		</nav>
+	</section>
 
 	<!-- The main application script -->
 	<script src="index.js"></script>
@@ -25,6 +32,7 @@
 	<!-- Application classes -->
 	<script src="app/Board.js"></script>
 	<script src="app/Cell.js"></script>
-	<script src="app/Controls.js"></script>
+	<script src="app/AppControls.js"></script>
+	<script src="app/BoardControls.js"></script>
 </body>
 </html>
