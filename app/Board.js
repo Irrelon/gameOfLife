@@ -20,13 +20,20 @@ app.module('Board', function (Cell) {
 		this._renderTargetSelector = targetElementSelector;
 	};
 	
+	/**
+	 * Initialises a new board based on the board's width and height.
+	 */
 	Board.prototype.init = function () {
-		// Loop over x and y axis and generate a new blank
-		// cell instance for each cell on the board
 		var x, y;
 		
+		// Loop over x and y axis and generate a new blank
+		// cell instance for each cell on the board
 		for (y = 0; y < this._height; y++) {
 			for (x = 0; x < this._width; x++) {
+				// Ensure we have a y axis array for this x axis
+				this._cells[x] = this._cells[x] || [];
+				
+				// Create the new cell
 				this._cells[x][y] = new Cell(this._renderTargetSelector, x, y);
 			}
 		}
