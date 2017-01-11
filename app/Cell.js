@@ -17,10 +17,22 @@ app.module('Cell', function () {
 			throw('Cell must be given an y co-ordinate as an integer!');
 		}
 		
+		// Store the board's element
+		this._boardElementSelector = boardElementSelector;
+		
 		// Set defaults
 		this.x(x);
 		this.y(y);
 		this.alive(false);
+		
+		// Create a DOM element for this cell
+		this._elem = document.createElement('div');
+		this._elem.className = 'cell dead';
+		
+		// Append the cell DOM element to the board's DOM container
+		document
+			.querySelector(this._boardElementSelector)
+			.appendChild(this._elem);
 	};
 	
 	/**
