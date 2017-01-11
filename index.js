@@ -47,6 +47,8 @@
 			throw('You must provide a function as the second argument to app.module()!');
 		}
 		
+		console.log('Module ' + moduleName + ' init...');
+		
 		// Stringify the module function
 		moduleString = moduleDefinition.toString();
 		
@@ -68,6 +70,8 @@
 		// Convert dependency list to an array
 		moduleDepsArr = moduleDeps[2].split(',');
 		
+		console.log('Module "' + moduleName + '" has ' + moduleDepsArr.length + ' dependencies (' + moduleDepsArr.toString() + ')');
+		
 		// Grab the dependencies we need - this is a really simple way
 		// to check we got our dependencies by how many times this function
 		// gets called. Quick and dirty - I'm writing a game of life sim
@@ -81,7 +85,7 @@
 			console.log('Module "' + moduleName + '" found dependency "' + dependencyName + '"');
 			
 			// Check which index this dependency should be in
-			depArgumentIndex = moduleDepsArr.indexOf(moduleName);
+			depArgumentIndex = moduleDepsArr.indexOf(dependencyName);
 			
 			// Assign the dependency to the correct argument index
 			depArgumentArr[depArgumentIndex] = dependency;
@@ -110,6 +114,13 @@
 	 * @private
 	 */
 	App.prototype._waitForModule = function (name, callback) {
+		// Check if the module we are waiting for already exists
+		if (this._modules[name]) {
+			// The module is already loaded, callback now
+			callback(name, this._modules[name]);
+			return this;
+		}
+		
 		// Add the callback to the waiting list for this module
 		this._waiting[name] = this._waiting[name] || [];
 		this._waiting[name].push(callback);
