@@ -60,6 +60,24 @@ app.module('Cell', function () {
 	};
 	
 	/**
+	 * Gets / sets the cell's alive flag.
+	 * @param {Boolean=} val Optional. If provided, sets the cell's
+	 * alive flag and subsequent colour on the game board. If omitted,
+	 * gets the cell's current alive flag value and returns it.
+	 * @returns {Cell|Boolean} If "val" is provided, returns "this"
+	 * to allow method chaining. If omitted, returns the current
+	 * value.
+	 */
+	Cell.prototype.alive = function (val) {
+		if (val !== undefined) {
+			this._y = val;
+			return this;
+		}
+		
+		return this._y;
+	};
+	
+	/**
 	 * Process a game tick for this cell.
 	 * @param {Board} board The current game board instance that this
 	 * cell belongs to.
